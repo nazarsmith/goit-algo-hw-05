@@ -2,6 +2,7 @@ from searchers import *
 from functools import partial
 
 import matplotlib.pyplot as plt
+import numpy as np
 import timeit
 
 
@@ -37,48 +38,63 @@ def run_tests_for_text(text: str, pattern: str):
 
 print("\nThe time it took to find a substring in text_1:")
 success_text_1 = run_tests_for_text(
-    "C:\Projects\\algorithms\goit-algo-hw-05\\text_1.txt", "ніж поточний"
+    # "C:\Projects\\algorithms\goit-algo-hw-05\\text_1.txt", "ніж поточний"
+    "/Users/nstakhovskyi/Documents/Repos/goit-algo-hw-05/text_1.txt", "ніж поточний"
 )
 print(success_text_1)
 print("\nThe time it took to find a substring in text_2:")
 success_text_2 = run_tests_for_text(
-    "C:\Projects\\algorithms\goit-algo-hw-05\\text_2.txt", "елементу здійснюється"
+    # "C:\Projects\\algorithms\goit-algo-hw-05\\text_2.txt", "елементу здійснюється"
+    "/Users/nstakhovskyi/Documents/Repos/goit-algo-hw-05/text_2.txt", "елементу здійснюється"
+    
 )
 print(success_text_2)
 print("\nThe time it took to go through text_1 and fail to find the substring:")
 fail_text_1 = run_tests_for_text(
-    "C:\Projects\\algorithms\goit-algo-hw-05\\text_1.txt", "ніжпо"
+    # "C:\Projects\\algorithms\goit-algo-hw-05\\text_1.txt", "ніжпо"
+    "/Users/nstakhovskyi/Documents/Repos/goit-algo-hw-05/text_1.txt", "ніжпо"
+
 )
 print(fail_text_1)
 print("\nThe time it took to go through text_2 and fail to find the substring:")
 fail_text_2 = run_tests_for_text(
-    "C:\Projects\\algorithms\goit-algo-hw-05\\text_2.txt", "уякі"
+    # "C:\Projects\\algorithms\goit-algo-hw-05\\text_2.txt", "уякі"
+    "/Users/nstakhovskyi/Documents/Repos/goit-algo-hw-05/text_2.txt", "уякі"
 )
-print(fail_text_2)
 
-labels = list(success_text_1.keys())
 success_values_1 = list(success_text_1.values())
 success_values_2 = list(success_text_2.values())
+fail_values_1 = list(fail_text_1.values())
+fail_values_2 = list(fail_text_2.values())
 
-plt.bar(labels, success_values_1, color="b", alpha=0.7, width=0.2)
-plt.bar(labels, success_values_2, color="r", alpha=0.7, width=0.2)
-# ins, = plt.plot(
-#     [
-#         low_data[1], low_mid_data[1], mid_data[1], mid_large_data[1], large_data[1], large_very_large_data[1], very_large_data[1]
-#     ],
-#     color = "r",
-#     alpha = 0.7,
-#     label = "Insert"
-#     )
-# srt, = plt.plot(
-#     [
-#         low_data[2], low_mid_data[2], mid_data[2], mid_large_data[2], large_data[2], large_very_large_data[2], very_large_data[2]
-#     ],
-#     color = "g",
-#     alpha = 0.7,
-#     label = "sorted()"
-#     )
-# plt.xlabel('Num experiments')
-# plt.ylabel('Seconds')
-# plt.legend(handles = [mr, ins, srt])
+print(success_values_1)
+
+width = 0.2
+fig = plt.subplots(figsize = (10,6))
+
+ 
+# Set position of bar on X axis 
+br1 = np.arange(3) 
+br2 = [x + width for x in br1] 
+br3 = [x + width for x in br2] 
+br4 = [x + width for x in br3]
+ 
+# Make the plot
+plt.bar(br1, success_values_1, color ='r', width = width, 
+        edgecolor ='red', label ='Success Text 1', alpha=0.7) 
+plt.bar(br2, success_values_2, color ='g', width = width, 
+        edgecolor ='green', label ='Success Text 2', alpha=0.7) 
+plt.bar(br3, fail_values_1, color ='b', width = width, 
+        edgecolor ='blue', label ='Fail Text 1', alpha=0.7)
+plt.bar(br4, fail_values_2, color ='y', width = width, 
+        edgecolor ='yellow', label ='Fail Text 2', alpha=0.7)
+
+ 
+# Adding Xticks 
+plt.xlabel('Algorithms', fontweight ='bold', fontsize = 12) 
+plt.ylabel('Time, seconds', fontweight ='bold', fontsize = 12) 
+plt.xticks([r + width for r in range(3)], 
+        ['KMP', 'Boyer-Moore', 'Rabin-Karp'])
+ 
+plt.legend()
 plt.show()
