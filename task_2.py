@@ -27,14 +27,14 @@ def run_tests(num_items, to_find: int = None):
 
 
 # results = run_tests(20)
-target = -1
+target = 9.4
 results = run_tests(50, target)
 print(
     f"Raw result: {results}",
     f"Results type: {type(results)}",
     f"Number of iterations it took: {results[0]}",
     f"Item found: {results[1] == target}",
-    f"The upper limit of the search: {results[1]}",
+    f"The upper limit/boundary of the search (closest value): {results[1]}",
     sep="\n",
     end="\n" * 2,
 )
