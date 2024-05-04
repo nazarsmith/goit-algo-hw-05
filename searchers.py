@@ -13,9 +13,15 @@ def binary_search(arr, x):
         elif arr[mid] > x:
             high = mid - 1
         else:
-            return mid, iterations, high
+            return mid, iterations
 
-    return -1, -1, -1
+    if arr[mid] < x:
+        if (mid + 1) <= len(arr) - 1:
+            return mid + 1, iterations
+        else:
+            return -1, iterations
+
+    return mid, iterations
 
 
 def compute_lps(pattern):
